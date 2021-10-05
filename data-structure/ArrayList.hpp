@@ -10,97 +10,55 @@
 template <typename T>
 class ArrayList : public LinearList<T> {
 public:
-  ArrayList(int capacity = 10);
+  ArrayList(int initCapacity = 10);
   ArrayList(const ArrayList<T> &);
-  ~ArrayList() { delete[] element_; }
+  ~ArrayList() { delete[] element; }
 
-  bool empty() const override { return list_size_ == 0; }
-  int size() const override { return list_size_; }
-  T &get(int index) const override;
-  int index(const T &element) const override;
-  void erase(int index) override;
-  void insert(int index, const T &element) override;
+  bool empty() const override { return listSize == 0; }
+  int size() const override { return listSize; }
+  T &get(int theIndex) const override;
+  int index(const T &theElement) const override;
+  void erase(int theIndex) override;
+  void insert(int theIndex, const T &theElement) override;
   void output(std::ostream &out) const override;
 
-  int capacity() const { return array_length_; }
+  int capacity() const { return arrayLength; }
 
 protected:
-  void check_index(int index) const;
+  void checkIndex(int theIndex) const;
 
-  T *element_;
-  int array_length_;
-  int list_size_;
+  T *element{nullptr};
+  int arrayLength{0};
+  int listSize{0};
 };
 
 template <typename T>
-ArrayList<T>::ArrayList(int capacity) {
-  if (capacity < 1) {
-    std::ostringstream s;
-    s << "Initial capacity = " << capacity << " Must be > 0";
-    throw IllegalParameter(s.str());
-  }
-  array_length_ = capacity;
-  element_ = new T[array_length_];
-  list_size_ = 0;
+ArrayList<T>::ArrayList(int initCapacity) {}
+
+template <typename T>
+ArrayList<T>::ArrayList(const ArrayList<T> &theList) {}
+
+template <typename T>
+void ArrayList<T>::checkIndex(int theIndex) const {}
+
+template <typename T>
+T &ArrayList<T>::get(int theIndex) const {
+  checkIndex(theIndex);
+  return element[theIndex];
 }
 
 template <typename T>
-ArrayList<T>::ArrayList(const ArrayList<T> &list) {
-  array_length_ = list.array_length_;
-  list_size_ = list.list_size_;
-  element_ = new T[array_length_];
-  std::copy(list.element_, list.element_ + list_size_, element_);
+int ArrayList<T>::index(const T &theElement) const {
+  return 0;
 }
 
 template <typename T>
-void ArrayList<T>::check_index(int index) const {
-  if (index < 0 || index >= list_size_) {
-    std::ostringstream s;
-    s << "index = " << index << " size = " << list_size_;
-    throw IllegalParameter(s.str());
-  }
-}
+void ArrayList<T>::erase(int theIndex) {}
 
 template <typename T>
-T &ArrayList<T>::get(int index) const {
-  check_index(index);
-  return element_[index];
-}
+void ArrayList<T>::insert(int theIndex, const T &theElement) {}
 
 template <typename T>
-int ArrayList<T>::index(const T &element) const {
-  int index = std::find(element_, element_ + list_size_, element);
-  if (index == list_size_) {
-    return -1;
-  }
-  return index;
-}
-
-template <typename T>
-void ArrayList<T>::erase(int index) {
-  check_index(index);
-  std::copy(element_ + index + 1， element_ + list_size_, element_ + index);
-  element_[--list_size_];
-}
-
-template <typename T>
-void ArrayList<T>::insert(int index, const T &element) {
-  if (index < 0 || index >= list_size_) {
-    std::ostringstream s;
-    s << "index = " << index << " size = " << list_size_;
-    throw IllegalParameter(s.str());
-  }
-  if (list_size_ == array_length_) { // TODO
-    return;
-  }
-  std::copy_backward(element_ + index, element_ + list_size_, element_ + list_size_ + 1);
-  element_[index] = element;
-  list_size_++;
-}
-
-template <typename T>
-void ArrayList<T>::output(std::ostream &out) const {
-  std::copy(element_, element_ + list_size_, std::ostream_iterator<T>(std::cout, " "));
-}
+void ArrayList<T>::output(std::ostream &out) const {}
 
 #endif // ARRAY_LIST_HPP

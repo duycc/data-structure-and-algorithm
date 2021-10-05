@@ -14,12 +14,12 @@
 
 class IllegalParameter {
 public:
-  IllegalParameter() : message_("Illegal parameter value") {}
-  IllegalParameter(std::string message) : message_(message) {}
-  void outputMessage() { std::cout << message_ << std::endl; }
+  IllegalParameter() : message("Illegal parameter value") {}
+  IllegalParameter(std::string msg) : message(msg) {}
+  void outputMessage() { std::cout << message << std::endl; }
 
 private:
-  std::string message_;
+  std::string message;
 };
 
 #endif // ILLEGAL_PARAMETER_H

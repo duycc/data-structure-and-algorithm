@@ -17,10 +17,10 @@ public:
   virtual ~LinearList() {}
   virtual bool empty() const = 0;
   virtual int size() const = 0;
-  virtual T &get(int index) const = 0;
-  virtual int index(const T &element) const = 0;
-  virtual void erase(int index) = 0;
-  virtual void insert(int index, const T &element) = 0;
+  virtual T &get(int theIndex) const = 0;
+  virtual int index(const T &theElement) const = 0;
+  virtual void erase(int theIndex) = 0;
+  virtual void insert(int theIndex, const T &theElement) = 0;
   virtual void output(std::ostream &out) const = 0;
 };
 

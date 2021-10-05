@@ -6,13 +6,13 @@
 
 void testArrayList() {
   ArrayList<int> *x = new ArrayList<int>(100);
-  //   ArrayList<double> y(100);
+  ArrayList<double> y(100);
 
-  //   ArrayList<char> z;
+  ArrayList<char> z;
 
-  //   ArrayList<double> w(y);
+  ArrayList<double> w(y);
 
-  //   std::cout << z.capacity() << std::endl;
+  std::cout << z.capacity() << std::endl;
 }
 
 #endif // TEST_ARRAY_LIST_HPP

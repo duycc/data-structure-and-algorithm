@@ -10,7 +10,7 @@
 #include "testArrayList.hpp"
 
 int main() {
-  // testSort();
+  testSort();
   testArrayList();
 
   return 0;
