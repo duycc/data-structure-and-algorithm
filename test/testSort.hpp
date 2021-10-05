@@ -1,9 +1,9 @@
-//===--------------------------- test/testSort.hpp - [data-structure-and-algorithm] ---------------------*- C++ -*-===//
-// brief :
+//===--------------------------- test/testSort.hpp - [tinyDTL] ------------------------------------------*- C++ -*-===//
+// Brief :
+//   test Sort Alogrithm
 //
-//
-// author: YongDu
-// date  : 2021-10-04
+// Author: YongDu
+// Date  : 2021-10-06
 //===--------------------------------------------------------------------------------------------------------------===//
 
 #if !defined(TEST_SORT_HPP)
@@ -21,8 +21,10 @@ namespace dtl {
 namespace test {
 
 void testSort() {
-  std::vector<int> vec = {26, 3, 49, 556, 81, 9, 863, 0};
+  std::cout << "//============================================================================//" << std::endl;
+  std::cout << "//===--------------------------- Run Sort Test ----------------------------===//" << std::endl;
 
+  std::vector<int> vec = {26, 3, 49, 556, 81, 9, 863, 0};
   cout << "before sort:\n";
   std::copy(vec.begin(), vec.end(), std::ostream_iterator<int>{cout, " "});
   cout << endl;
@@ -33,7 +35,13 @@ void testSort() {
   std::copy(vec.begin(), vec.end(), std::ostream_iterator<int>{cout, " "});
   cout << endl;
 
-  return;
+  std::vector<int> vec1;
+  std::cout << vec1.capacity() << std::endl;
+  vec.push_back(1);
+  std::cout << vec1.capacity() << std::endl;
+
+  std::cout << "//===--------------------------- End Sort Test ----------------------------===//" << std::endl;
+  std::cout << "//============================================================================//" << std::endl;
 }
 
 } // namespace test

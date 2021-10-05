@@ -1,3 +1,11 @@
+//===--------------------------- data-structure/ArrayList.hpp - [tinyDTL] -------------------------------*- C++ -*-===//
+// Brief :
+//   ArrayList-impl
+//
+// Author: YongDu
+// Date  : 2021-10-06
+//===--------------------------------------------------------------------------------------------------------------===//
+
 #if !defined(ARRAY_LIST_HPP)
 #define ARRAY_LIST_HPP
 
@@ -6,6 +14,7 @@
 
 #include "LinearList.h"
 #include "Exception.h"
+#include "Iterator.h"
 
 namespace dtl {
 namespace {
@@ -14,7 +23,7 @@ void changeLength1D(T *&a, int oldLegth, int newLength) {
   if (newLength < 0) {
     throw IllegalParameter("new length must be >= 0");
   }
-  T *temp = new T[newLength];
+  T * temp = new T[newLength];
   int number = std::min(oldLegth, newLength);
   std::copy(a, a + number, temp);
   delete[] a;
@@ -30,20 +39,29 @@ public:
   ~ArrayList() { delete[] element; }
 
   bool empty() const override { return listSize == 0; }
-  int size() const override { return listSize; }
-  T &get(int theIndex) const override;
-  int indexOf(const T &theElement) const override;
+  int  size() const override { return listSize; }
+  T &  get(int theIndex) const override;
+  int  indexOf(const T &theElement) const override;
   void erase(int theIndex) override;
   void insert(int theIndex, const T &theElement) override;
   void output(std::ostream &out) const override;
 
   int capacity() const { return arrayLength; }
 
+  T &operator[](int theIndex) const {
+    checkIndex(theIndex);
+    return element[theIndex];
+  }
+
+public:
+  Iterator<T> begin() { return Iterator<T>(element); }
+  Iterator<T> end() { return Iterator<T>(element + listSize); }
+
 protected:
   void checkIndex(int theIndex) const;
 
-  T *element{nullptr};
-  int arrayLength{1}; // arrayLength 如果为0，则在第一次扩容时 2 * arrayLength = 0
+  T * element{nullptr};
+  int arrayLength{0};
   int listSize{0};
 };
 
@@ -106,8 +124,9 @@ void ArrayList<T>::insert(int theIndex, const T &theElement) {
     throw IllegalIndex(s.str());
   }
   if (listSize == arrayLength) {
-    changeLength1D(element, arrayLength, 2 * arrayLength);
-    arrayLength *= 2;
+    int newLength = arrayLength == 0 ? 2 : 2 * arrayLength;
+    changeLength1D(element, arrayLength, newLength);
+    arrayLength = newLength;
   }
   std::copy_backward(element + theIndex, element + listSize, element + listSize + 1);
   element[theIndex] = theElement;

@@ -1,3 +1,5 @@
+Language: Cpp
 BasedOnStyle: LLVM
 ColumnLimit: 120
 AlwaysBreakTemplateDeclarations: true
+AlignConsecutiveDeclarations: true
