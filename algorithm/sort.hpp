@@ -9,19 +9,24 @@
 #if !defined(SORT_HPP)
 #define SORT_HPP
 
-#include <vector>
 #include <algorithm>
+
+#include "ArrayList.hpp"
 
 namespace dtl {
 template <typename T>
-void bubbleSort(std::vector<T> &vec) {
-  int len = vec.size();
-  for (int i{}; i < len - 1; ++i) {
-    for (int j{}; j < len - 1 - i; ++j) {
-      if (vec[j] > vec[j + 1])
-        std::swap(vec[j], vec[j + 1]);
+void bubbleSort(ArrayList<T> &nums) {
+  int len = nums.size();
+  for (int i = 0; i < len - 1; ++i) {
+    for (int j = 0; j < len - 1 - i; ++j) {
+      if (nums[j] > nums[j + 1])
+        std::swap(nums[j], nums[j + 1]);
     }
   }
 }
+
+template <typename T>
+void selectSort(ArrayList<T> &nums) {}
+
 } // namespace dtl
 #endif // SORT_HPP

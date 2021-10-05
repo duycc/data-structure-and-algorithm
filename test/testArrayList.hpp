@@ -14,6 +14,9 @@
 
 #include "ArrayList.hpp"
 
+using std::cout;
+using std::endl;
+
 namespace dtl {
 namespace test {
 
@@ -61,6 +64,9 @@ void testArrayList() {
     std::cout << b << std::endl;
 
     std::cout << std::accumulate(b.begin(), b.end(), 0) << std::endl;
+
+    ArrayList<int> c{1, 2, 3, 4, 5};
+    cout << c << endl;
 
   } catch (Exception &e) {
     e.outputMessage();

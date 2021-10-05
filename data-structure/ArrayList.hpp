@@ -11,6 +11,7 @@
 
 #include <sstream>
 #include <algorithm>
+#include <initializer_list>
 
 #include "LinearList.h"
 #include "Exception.h"
@@ -35,6 +36,7 @@ template <typename T>
 class ArrayList : public LinearList<T> {
 public:
   ArrayList(int initCapacity = 10);
+  ArrayList(std::initializer_list<T> initList);
   ArrayList(const ArrayList<T> &);
   ~ArrayList() { delete[] element; }
 
@@ -75,6 +77,15 @@ ArrayList<T>::ArrayList(int initCapacity) {
   this->arrayLength = initCapacity;
   this->element = new T[arrayLength];
   this->listSize = 0;
+}
+
+template <typename T>
+ArrayList<T>::ArrayList(std::initializer_list<T> initList) {
+  int  i = 0;
+  auto iter = initList.begin();
+  for (; iter != initList.end(); ++iter) {
+    this->insert(i++, *iter);
+  }
 }
 
 template <typename T>

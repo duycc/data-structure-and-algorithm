@@ -13,6 +13,7 @@
 #include <iterator>
 
 #include "sort.hpp"
+#include "util.h"
 
 using std::cout;
 using std::endl;
@@ -21,27 +22,16 @@ namespace dtl {
 namespace test {
 
 void testSort() {
-  std::cout << "//============================================================================//" << std::endl;
-  std::cout << "//===--------------------------- Run Sort Test ----------------------------===//" << std::endl;
+  fmtRun("Run Sort Test", Color::kBlue);
+  ArrayList<int> nums{26, 3, 49, 556, 81, 9, 863, 0};
 
-  std::vector<int> vec = {26, 3, 49, 556, 81, 9, 863, 0};
-  cout << "before sort:\n";
-  std::copy(vec.begin(), vec.end(), std::ostream_iterator<int>{cout, " "});
-  cout << endl;
+  fmtOut("Unsorted elements: ", Color::kGreen);
+  cout << nums << endl;
 
-  bubbleSort(vec);
+  bubbleSort(nums);
 
-  cout << "after sort:\n";
-  std::copy(vec.begin(), vec.end(), std::ostream_iterator<int>{cout, " "});
-  cout << endl;
-
-  std::vector<int> vec1;
-  std::cout << vec1.capacity() << std::endl;
-  vec.push_back(1);
-  std::cout << vec1.capacity() << std::endl;
-
-  std::cout << "//===--------------------------- End Sort Test ----------------------------===//" << std::endl;
-  std::cout << "//============================================================================//" << std::endl;
+  fmtOut("Sorted elements: ", Color::kGreen);
+  cout << nums << endl;
 }
 
 } // namespace test
