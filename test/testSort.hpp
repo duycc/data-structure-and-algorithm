@@ -17,6 +17,9 @@
 using std::cout;
 using std::endl;
 
+namespace dtl {
+namespace test {
+
 void testSort() {
   std::vector<int> vec = {26, 3, 49, 556, 81, 9, 863, 0};
 
@@ -32,5 +35,8 @@ void testSort() {
 
   return;
 }
+
+} // namespace test
+} // namespace dtl
 
 #endif // TEST_SORT_HPP

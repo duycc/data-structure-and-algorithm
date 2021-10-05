@@ -12,6 +12,7 @@
 #include <vector>
 #include <algorithm>
 
+namespace dtl {
 template <typename T>
 void bubbleSort(std::vector<T> &vec) {
   int len = vec.size();
@@ -22,5 +23,5 @@ void bubbleSort(std::vector<T> &vec) {
     }
   }
 }
-
+} // namespace dtl
 #endif // SORT_HPP

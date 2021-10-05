@@ -10,8 +10,8 @@
 #include "testArrayList.hpp"
 
 int main() {
-  testSort();
-  testArrayList();
+  dtl::test::testSort();
+  dtl::test::testArrayList();
 
   return 0;
 }

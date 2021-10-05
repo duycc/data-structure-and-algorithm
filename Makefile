@@ -14,7 +14,7 @@ CC = g++ -std=c++11
 VERSION = release
 endif
 
-TARGET = $(BUILD_ROOT)/app
+TARGET = $(BUILD_ROOT)/tinyDTL
 
 SRCS = $(wildcard *.cpp)
 OBJS = $(SRCS:.cpp=.o)
