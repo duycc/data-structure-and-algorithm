@@ -10,10 +10,14 @@
 
 #include "sort.hpp"
 
+using namespace dtl;
+
 int main() {
+  //===----------------------------- Test DTL ------------------------------===//
+  // test::testArrayList();
 
+  //===-------------------------- Test Solution ----------------------------===//
+  solution::testSort();
 
-  
-  dtl::solution::testSort();
   return 0;
 }

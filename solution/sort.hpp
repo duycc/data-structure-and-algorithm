@@ -12,7 +12,6 @@
 #include <algorithm>
 
 #include "ArrayList.hpp"
-#include "util.h"
 
 namespace dtl {
 namespace solution {

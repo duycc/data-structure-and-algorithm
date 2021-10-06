@@ -21,8 +21,7 @@ namespace dtl {
 namespace test {
 
 void testArrayList() {
-  std::cout << "//============================================================================//" << std::endl;
-  std::cout << "//===------------------------- Run ArrayList Test -------------------------===//" << std::endl;
+  fmtRun("Run ArrayList Test", Color::kBlue);
   try {
     LinearList<int> * x = new ArrayList<int>(100);
     ArrayList<double> y(100);
@@ -71,8 +70,6 @@ void testArrayList() {
   } catch (Exception &e) {
     e.outputMessage();
   }
-  std::cout << "//===------------------------- End ArrayList Test -------------------------===//" << std::endl;
-  std::cout << "//============================================================================//" << std::endl;
 }
 
 } // namespace test

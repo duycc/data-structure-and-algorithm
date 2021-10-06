@@ -16,6 +16,7 @@
 #include "LinearList.h"
 #include "Exception.h"
 #include "Iterator.h"
+#include "util.h"
 
 namespace dtl {
 namespace {
