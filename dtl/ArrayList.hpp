@@ -13,10 +13,10 @@
 #include <algorithm>
 #include <initializer_list>
 
-#include "LinearList.h"
-#include "Exception.h"
-#include "Iterator.h"
-#include "util.h"
+#include "LinearList.hpp"
+#include "Exception.hpp"
+#include "Iterator.hpp"
+#include "util.hpp"
 
 namespace dtl {
 namespace {
