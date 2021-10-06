@@ -1,7 +1,7 @@
 # Makefile
 BUILD_ROOT = $(shell pwd)
-INCLUDE_PATH =	-I $(BUILD_ROOT)/algorithm/ \
-				-I $(BUILD_ROOT)/data-structure/ \
+INCLUDE_PATH =	-I $(BUILD_ROOT)/dtl/ \
+				-I $(BUILD_ROOT)/solution/ \
 				-I $(BUILD_ROOT)/test/
 
 DEBUG = true

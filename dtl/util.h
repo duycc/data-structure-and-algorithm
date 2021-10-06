@@ -1,4 +1,4 @@
-//===--------------------------- data-structure/util.h - [tinyDTL] --------------------------------------*- C++ -*-===//
+//===--------------------------- dtl/util.h - [tinyDTL] -------------------------------------------------*- C++ -*-===//
 // Brief :
 //
 //
@@ -13,6 +13,13 @@
 #include <iostream>
 
 namespace dtl {
+template <typename T>
+void swap(T &lhs, T &rhs) {
+  T tmp = lhs;
+  lhs = rhs;
+  rhs = tmp;
+}
+
 enum Color { kBlack = 30, kRed, kGreen, kYellow, kBlue, kPurple, kDarkGreen, kWhite };
 
 void fmtRun(const std::string &text, Color color = Color::kGreen) {

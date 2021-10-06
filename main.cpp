@@ -6,10 +6,14 @@
 // Date  : 2021-10-04
 //===--------------------------------------------------------------------------------------------------------------===//
 
-#include "testSort.hpp"
 #include "testArrayList.hpp"
 
+#include "sort.hpp"
+
 int main() {
-  dtl::test::testSort();
+
+
+  
+  dtl::solution::testSort();
   return 0;
 }
