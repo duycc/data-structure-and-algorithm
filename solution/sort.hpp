@@ -15,6 +15,8 @@
 #include <cstdlib>
 #include <vector>
 #include <stack>
+#include <map>
+#include <cmath>
 
 namespace dtl {
 namespace solution {
@@ -193,6 +195,176 @@ std::string heapSort(std::vector<T> &vec) {
   return __func__;
 }
 
+//===------------------------- [mergeSort] --------------------------------===//
+// 把数据分为两段，从两段中逐个选最小的元素移入新数据段的末尾。可从上到下或从下到上进行
+//===----------------------------------------------------------------------===//
+template <typename T>
+std::string mergeSortRecursive(std::vector<T> &vec, int begin, int end) {
+  if (begin >= end) {
+    return std::string();
+  }
+  int mid = begin + ((end - begin) >> 1);
+  mergeSortRecursive(vec, begin, mid);
+  mergeSortRecursive(vec, mid + 1, end);
+
+  int i = begin;
+  int j = mid + 1;
+  int k = 0;
+
+  std::vector<T> tmp(end - begin + 1);
+  while (i <= mid && j <= end) {
+    tmp[k++] = vec[i] < vec[j] ? vec[i++] : vec[j++];
+  }
+  while (i <= mid) {
+    tmp[k++] = vec[i++];
+  }
+  while (j <= end) {
+    tmp[k++] = vec[j++];
+  }
+  for (i = begin, k = 0; i <= end; ++i, ++k) {
+    vec[i] = tmp[k];
+  }
+  return __func__;
+}
+
+template <typename T>
+std::string mergeSortIterative(std::vector<T> &vec) {
+  int len = vec.size();
+  // width: 每次排序序列的长度，每次排序两个width长度的序列，然后将其合并
+  for (int width = 1; width < len; width *= 2) {
+    for (int i = 0; i < len; i += 2 * width) {
+      int begin1st = i;
+      int end1st = std::min(begin1st + width - 1, len - 1);
+      int begin2nd = end1st + 1;
+      int end2nd = std::min(begin1st + 2 * width - 1, len - 1);
+
+      std::vector<T> tmp(end2nd - begin1st + 1);
+      int            k = 0;
+      while (begin1st <= end1st && begin2nd <= end2nd) {
+        tmp[k++] = vec[begin1st] < vec[begin2nd] ? vec[begin1st++] : vec[begin2nd++];
+      }
+      while (begin1st <= end1st) {
+        tmp[k++] = vec[begin1st++];
+      }
+      while (begin2nd <= end2nd) {
+        tmp[k++] = vec[begin2nd++];
+      }
+
+      for (k = 0; k < tmp.size(); ++k) {
+        vec[k + i] = tmp[k];
+      }
+    }
+  }
+  return __func__;
+}
+
+//===------------------------- [shellSort] --------------------------------===//
+// 1. 希尔排序是将待排序的数组元素 按下标的一定增量分组 ，分成多个子序列
+// 2. 然后对各个子序列进行直接插入排序算法排序
+// 3. 然后依次缩减增量再进行排序，直到增量为1时，进行最后一次直接插入排序
+//===----------------------------------------------------------------------===//
+template <typename T>
+std::string shellSort(std::vector<T> &vec) {
+  int len = vec.size();
+  int gap = 1;
+  while (gap < len / 3) {
+    gap = gap * 3 + 1;
+  }
+
+  while (gap >= 1) {
+    for (int i = gap; i < len; ++i) {
+      for (int j = i; j - gap >= 0; j -= gap) {
+        if (vec[j - gap] > vec[j]) {
+          std::swap(vec[j - gap], vec[j]);
+        } else {
+          break;
+        }
+      }
+    }
+    gap /= 3;
+  }
+  return __func__;
+}
+
+//===------------------------- [countSort] --------------------------------===//
+// 1. 找出待排序的数组中最大和最小的元素
+// 2. 统计数组中每个值为 i 的元素出现的次数，存入数组 C 的第 i 项
+// 3. 对所有的计数累加（从 C 中的第一个元素开始，每一项和前一项相加）
+// 4. 反向填充目标数组：将每个元素 i 放在新数组的第 C[i] 项，每放一个元素就将 C[i] 减去 1
+//===----------------------------------------------------------------------===//
+template <typename T>
+std::string countSort(std::vector<T> &vec) {
+  T min = *std::min_element(vec.begin(), vec.end());
+  T max = *std::max_element(vec.begin(), vec.end());
+
+  std::map<T, int> hashMap; // val -> count
+  for (auto val : vec) {
+    hashMap[val]++;
+  }
+
+  int k = 0;
+  for (auto &[val, cnt] : hashMap) {
+    while (cnt--) {
+      vec[k++] = val;
+    }
+  }
+  return __func__;
+}
+
+//===------------------------- [bucketSort] -------------------------------===//
+// 1. 设置一个定量的数组当作空桶子。
+// 2. 寻访序列，并且把项目一个一个放到对应的桶子去。
+// 3. 对每个不是空的桶子进行排序。
+// 4. 从不是空的桶子里把项目再放回原来的序列中。
+//===----------------------------------------------------------------------===//
+template <typename T>
+std::string bucketSort(std::vector<T> &vec) {
+  T min = *std::min_element(vec.begin(), vec.end());
+  T max = *std::max_element(vec.begin(), vec.end());
+
+  std::vector<std::vector<T>> buckets((max - min) / vec.size() + 1);
+
+  for (auto &val : vec) {
+    int num = (val - min) / vec.size();
+    buckets[num].push_back(val);
+  }
+
+  auto &&iter = vec.begin();
+  for (auto &bucket : buckets) {
+    std::sort(bucket.begin(), bucket.end());
+    std::copy(bucket.begin(), bucket.end(), iter);
+    std::advance(iter, bucket.size());
+  }
+  return __func__;
+}
+
+//===------------------------- [radixSort] --------------------------------===//
+// 一种多关键字的排序算法，可用桶排序实现。
+//===----------------------------------------------------------------------===//
+template <typename T>
+std::string radixSort(std::vector<T> &vec) {
+  T   max = *std::max_element(vec.begin(), vec.end());
+  int maxLen = std::to_string(max).size();
+
+  std::vector<std::vector<T>> buckets(10);
+
+  for (int i = 0; i < maxLen; ++i) {
+    for (auto &val : vec) {
+      // 只能排序非负数
+      int num = static_cast<int>(val / std::pow(10, i)) % 10;
+      buckets[num].push_back(val);
+    }
+
+    auto &&iter = vec.begin();
+    for (auto &bucket : buckets) {
+      std::copy(bucket.begin(), bucket.end(), iter);
+      std::advance(iter, bucket.size());
+      bucket.clear(); // 每次需清空桶内元素
+    }
+  }
+  return __func__;
+}
+
 void testSort() {
   fmtRun("Run Sort Test", Color::kBlue);
 
@@ -201,7 +373,7 @@ void testSort() {
   std::vector<int> vec;
 
   for (int i = 0; i < 20; ++i) {
-    vec.push_back((rand() % (41)) - 10);
+    vec.push_back(rand() % (501));
   }
 
   fmtOut("Unsorted elements:", Color::kGreen);
@@ -215,7 +387,16 @@ void testSort() {
   // sortName = quickSortRecursive(vec, 0, vec.size() - 1);
   // sortName = quickSortIterative(vec);
 
-  sortName = heapSort(vec);
+  // sortName = heapSort(vec);
+
+  // sortName = mergeSortRecursive(vec, 0, vec.size() - 1);
+  // sortName = mergeSortIterative(vec);
+
+  // sortName = shellSort(vec);
+
+  // sortName = countSort(vec);
+  // sortName = bucketSort(vec);
+  sortName = radixSort(vec);
 
   fmtOut("After [" + sortName + "]:", Color::kGreen);
   std::copy(vec.begin(), vec.end(), std::ostream_iterator<int>{std::cout, " "});

@@ -7,10 +7,10 @@ INCLUDE_PATH =	-I $(BUILD_ROOT)/dtl/ \
 DEBUG = true
 
 ifeq ($(DEBUG),true)
-CC = g++ -std=c++11 -g
+CC = g++ -std=c++17 -g
 VERSION = debug
 else
-CC = g++ -std=c++11
+CC = g++ -std=c++17
 VERSION = release
 endif
 
